@@ -50,6 +50,8 @@ A GitHub Actions bot that monitors a Square.site store for **new product drops**
 4. **No need for `requirements.txt`** — dependencies are installed directly inside the GitHub Actions job.
 5. Done! The bot will scrape & post automatically twice daily.
 
+⚙️ GitHub Actions Settings: Ensure “Read and Write” permissions are enabled for GitHub Actions in your repository settings.
+
 ---
 
 ## 🔍 Tech Stack
