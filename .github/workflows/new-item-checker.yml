@@ -1,0 +1,55 @@
+name: Check for New Items
+
+on:
+  schedule:
+    - cron: "0 17,23 * * *"  # 5PM and 11PM UTC
+  workflow_dispatch:
+
+jobs:
+  scrape-and-post:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install selenium beautifulsoup4 requests
+
+      - name: Install Chrome for Testing (v124)
+        run: |
+          wget https://storage.googleapis.com/chrome-for-testing-public/124.0.6367.91/linux64/chrome-linux64.zip
+          unzip chrome-linux64.zip
+          mv chrome-linux64 chrome
+          echo "Chrome installed to $(pwd)/chrome"
+
+      - name: Install ChromeDriver for Testing (v124)
+        run: |
+          wget https://storage.googleapis.com/chrome-for-testing-public/124.0.6367.91/linux64/chromedriver-linux64.zip
+          unzip chromedriver-linux64.zip
+          mv chromedriver-linux64/chromedriver .
+          chmod +x chromedriver
+          echo "ChromeDriver installed to $(pwd)/chromedriver"
+
+      - name: Run scraper
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          CHROME_BINARY: ${{ github.workspace }}/chrome/chrome
+          CHROMEDRIVER_PATH: ${{ github.workspace }}/chromedriver
+        run: python scraper.py
+
+      - name: Commit updated seen_items.txt
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+          git add seen_items.txt
+          git commit -m "Update seen items" || echo "No changes to commit"
+          git push

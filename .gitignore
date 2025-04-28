@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Env files (for local testing)
+.env
+
+# Selenium cache (if any)
+selenium-screenshot.png
+
+# VSCode settings (optional, if you use VSCode)
+.vscode/
+
+# GitHub Actions temp files
+*.log
+
+# Bot tracking files
+seen_items.txt
+
+# MacOS metadata
+.DS_Store
+
+# Others
+*.bak
