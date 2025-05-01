@@ -42,13 +42,14 @@ A GitHub Actions bot that monitors a Square.site store for **new product drops**
 ## 🛠 Setup Instructions
 
 1. **Clone the repository**
-2. **Set up GitHub Actions Secrets**:
+2. **Set up GitHub Actions Secret**:
    - `DISCORD_WEBHOOK_URL` → Your Discord webhook URL
+3. **Set up GitHub Actions Variables**:
    - `SQUARE_SUBDOMAIN` → Your store's subdomain (example: `examplestore` for `examplestore.square.site`)
    - `STORE_NAME` → (Optional) Friendly name for your store in Discord posts
-3. **Workflow** already provided (`.github/workflows/new-item-check.yml`)
-4. **No need for `requirements.txt`** — dependencies are installed directly inside the GitHub Actions job.
-5. Done! The bot will scrape & post automatically twice daily.
+4. **Workflow** already provided (`.github/workflows/new-item-check.yml`)
+5. **No need for `requirements.txt`** — dependencies are installed directly inside the GitHub Actions job.
+6. Done! The bot will scrape & post automatically twice daily.
 
 ⚙️ GitHub Actions Settings: Ensure “Read and Write” permissions are enabled for GitHub Actions in your repository settings.
 
